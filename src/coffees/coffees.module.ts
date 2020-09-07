@@ -1,35 +1,19 @@
-import { Module, Injectable } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeesController } from './coffees.controller';
 import { CoffeesService } from './coffees.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from '../events/entities/event.entity';
-import { COFFEE_BRANDS } from './coffees.constants';
-import { Connection } from 'typeorm';
-
-@Injectable()
-export class CoffeeBrandsFactory {
-  create () {
-    return ['buddy brew', 'nescafe'];
-  }
-}
+import coffeesConfig from './config/coffees.config';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Coffee, Flavor, Event])],
+  imports:[
+    TypeOrmModule.forFeature([Coffee, Flavor, Event]), 
+    ConfigModule.forFeature(coffeesConfig)],
   controllers: [CoffeesController], 
-  providers: [
-    CoffeesService,
-    { provide: COFFEE_BRANDS, 
-      useFactory: async (connection: Connection): Promise<string[]> => {
-        // const coffeeBrands = await connection.query('SELECT * ...');
-        const coffeeBrands = await Promise.resolve(['buddy brew', 'nescafe']);
-        console.log('[!] Async factory');
-        return coffeeBrands;
-      },
-      inject: [Connection],
-    },
-  ],
+  providers: [CoffeesService],
   exports: [CoffeesService],
 })
 export class CoffeesModule {}

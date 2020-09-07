@@ -32,3 +32,7 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+// Make sure .env file is in .gitignore file and NOT tracked by git */
+# Env
+*.env
