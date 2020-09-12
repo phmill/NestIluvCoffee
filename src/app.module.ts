@@ -8,6 +8,7 @@ import { CoffeesModule } from './coffees/coffees.module';
 import { ConfigModule } from '@nestjs/config';
 import appConfig from './config/app.config';
 import { APP_PIPE } from '@nestjs/core';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { APP_PIPE } from '@nestjs/core';
       load: [appConfig]
     }),
     CoffeesModule, 
-    CoffeeRatingModule
+    CoffeeRatingModule, CommonModule
   ],
   controllers: [AppController],
   providers: [
