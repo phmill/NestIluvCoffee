@@ -19,11 +19,13 @@ export class CoffeesController {
     return this.coffeesService.findAll(paginationQuery);
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.coffeesService.findOne('' + id);
   }
 
+  @Public()
   @Post()
   create(@Body() createCoffeeDto: CreateCoffeeDto) {
     return this.coffeesService.create(createCoffeeDto)
