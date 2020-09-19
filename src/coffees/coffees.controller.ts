@@ -9,23 +9,22 @@ import { Public } from 'src/common/decorators/public.decorator';
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {
-    console.log('CoffeesController created');
+    // console.log('CoffeesController created');
   }
 
   @Public()
   @Get()
-  findAll(@Query() paginationQuery:PaginationQueryDto) {
-    // const { limit, offset } = paginationQuery;
+  async findAll(@Query() paginationQuery:PaginationQueryDto) {
+    await new Promise(resolve => setTimeout(resolve, 5000));
+
     return this.coffeesService.findAll(paginationQuery);
   }
 
-  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.coffeesService.findOne('' + id);
   }
 
-  @Public()
   @Post()
   create(@Body() createCoffeeDto: CreateCoffeeDto) {
     return this.coffeesService.create(createCoffeeDto)
