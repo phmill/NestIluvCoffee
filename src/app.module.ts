@@ -27,8 +27,9 @@ import { CommonModule } from './common/common.module';
     ConfigModule.forRoot({
       load: [appConfig]
     }),
-    CoffeesModule, 
-    CoffeeRatingModule, CommonModule
+    CommonModule,
+    // CoffeesModule, 
+    // CoffeeRatingModule, 
   ],
   controllers: [AppController],
   providers: [
